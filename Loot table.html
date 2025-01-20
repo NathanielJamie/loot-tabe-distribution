@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pistol Loot Table</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .result {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Pistol Loot Table</h1>
+  <p>Click the button to get a random pistol.</p>
+  <button onclick="generateLoot()">Get Pistol</button>
+  <div class="result" id="result">Your pistol will appear here.</div>
+
+  <script>
+    // Pistol loot table with probabilities
+    const pistols = [
+      { name: "M1911", probability: 30 },
+      { name: "G18C", probability: 25 },
+      { name: "M9", probability: 20 },
+      { name: "Peacemaker", probability: 10 },
+      { name: "OTs-38", probability: 8 },
+      { name: "P30L", probability: 5 },
+      { name: "DEagle", probability: 2 }
+    ];
+
+    // Generate a random pistol based on weighted probabilities
+    function generateLoot() {
+      const totalProbability = pistols.reduce((sum, pistol) => sum + pistol.probability, 0);
+      const randomNum = Math.random() * totalProbability;
+      let cumulative = 0;
+
+      for (const pistol of pistols) {
+        cumulative += pistol.probability;
+        if (randomNum <= cumulative) {
+          document.getElementById("result").innerText = `You got: ${pistol.name}`;
+          return;
+        }
+      }
+    }
+  </script>
+</body>
+</html>
